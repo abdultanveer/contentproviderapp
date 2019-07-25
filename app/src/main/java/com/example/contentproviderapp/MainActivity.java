@@ -20,15 +20,16 @@ public class MainActivity extends AppCompatActivity {
         Uri allCalls = Uri.parse("content://call_log/calls");
 
         ListView listView = findViewById(R.id.inboxlistview);
+        String[] from =   new String[]{CallLog.Calls.NUMBER};//name of column in db
+        int[] to =  new int[]{android.R.id.text1};
+        int layout = android.R.layout.simple_list_item_1;
+
+
 
         ContentResolver contentResolver = getContentResolver();
       Cursor dataCursor =
               contentResolver.query(allCalls,null,null,null,null);
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_1,
-                dataCursor,
-                new String[]{CallLog.Calls.NUMBER},
-                new int[]{android.R.id.text1});
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,layout,dataCursor,from,to);
         listView.setAdapter(adapter);
 
 
