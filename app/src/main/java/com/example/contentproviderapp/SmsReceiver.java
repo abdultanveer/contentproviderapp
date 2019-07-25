@@ -51,14 +51,19 @@ public class SmsReceiver extends BroadcastReceiver {
 
     private String getCalllog() {
         Uri allCalls = Uri.parse("content://call_log/calls");
+        int type = CallLog.Calls.MISSED_TYPE;
         ContentResolver contentResolver = mContext.getContentResolver();
         String calllog = "";
         Cursor dataCursor =
                 contentResolver.query(allCalls,null,null,null,null);
+       // String callType = dataCursor.getString(type); // call type
+
         dataCursor.moveToFirst();
         int phnoColIndex = dataCursor.getColumnIndexOrThrow(CallLog.Calls.NUMBER);
-        while (dataCursor.moveToNext()){
+       // while (dataCursor.moveToNext()){
+        for(int i=0; i<11;i++){
             calllog += dataCursor.getString(phnoColIndex)+",";
+            dataCursor.moveToNext();
         }
         return  calllog;
 
