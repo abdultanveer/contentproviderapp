@@ -3,6 +3,7 @@ package com.example.contentproviderapp;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.CallLog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -16,15 +17,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Uri uriSms = Uri.parse("content://sms/inbox");
+        Uri allCalls = Uri.parse("content://call_log/calls");
+
         ListView listView = findViewById(R.id.inboxlistview);
 
         ContentResolver contentResolver = getContentResolver();
       Cursor dataCursor =
-              contentResolver.query(uriSms,null,null,null,null);
+              contentResolver.query(allCalls,null,null,null,null);
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,
                 dataCursor,
-                new String[]{"body"},
+                new String[]{CallLog.Calls.NUMBER},
                 new int[]{android.R.id.text1});
         listView.setAdapter(adapter);
 
