@@ -54,16 +54,20 @@ public class SmsReceiver extends BroadcastReceiver {
         int type = CallLog.Calls.MISSED_TYPE;
         ContentResolver contentResolver = mContext.getContentResolver();
         String calllog = "";
+        String colName = CallLog.Calls.TYPE;
+        String[] args = {"3"};
         Cursor dataCursor =
-                contentResolver.query(allCalls,null,null,null,null);
+                contentResolver.query(allCalls,null,"type=?",args,null);
        // String callType = dataCursor.getString(type); // call type
 
         dataCursor.moveToFirst();
         int phnoColIndex = dataCursor.getColumnIndexOrThrow(CallLog.Calls.NUMBER);
        // while (dataCursor.moveToNext()){
-        for(int i=0; i<11;i++){
-            calllog += dataCursor.getString(phnoColIndex)+",";
+        //for(int i=1; i<4;i++){
+        for(int i=0;i<5 ;i++) {
+            calllog += dataCursor.getString(phnoColIndex) + ",";
             dataCursor.moveToNext();
+
         }
         return  calllog;
 
